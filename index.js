@@ -7,7 +7,7 @@ inquirer.prompt([
     // Ask the user what they'd like to view
     type: "list",
     message: "Please select what you would like to view:",
-    name: 'initialQs',
+    name: 'initialQuestions',
     choices: ["View all departments", "View all roles", "View all employees", "Add a department", "Add a role", "Add an employee", "Update an employee role"],
   },
 ])
