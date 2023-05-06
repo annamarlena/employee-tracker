@@ -1,29 +1,35 @@
-INSERT INTO departments (department_name)
+INSERT INTO department (department_name)
   VALUES 
     ("Customer Service Center"),
     ("Career Force Center"),
     ("Information Technology");
 
-INSERT INTO roles(job_title, role_department, role_salary)
+INSERT INTO role (job_title, department_id, role_salary)
   VALUES
-    ("Call Center Representative", "Customer Service Center", 45000 ),
-    ("Call Center Manager", "Customer Service Center", 65000 ),
-    ("Career Counselor", "Career Force Center", 50000 ),
-    ("Career Center Manager", "Career Force Center", 65000 ),
-    ("IT Specialist", "Information Technology", 60000 ),
-    ("IT Manager", "Information Technology", 70000 );
+    ("Call Center Representative", 1, 45000 ),
+    ("Call Center Manager", 1, 65000 ),
+    ("Career Counselor", 2, 50000 ),
+    ("Career Center Manager", 2, 65000 ),
+    ("IT Specialist", 3, 60000 ),
+    ("IT Manager", 3, 70000 );
 
-INSERT INTO employees (first_name, last_name, employee_title, employee_department, employee_salary, reporting_manager)
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
   VALUES
-    ("Melissa", "Holland", "Call Center Representative", "Customer Service Center", 45000, "Linda Corney" ),
-    ("Daniel", "Oberhouse", "Call Center Representative", "Customer Service Center", 45000, "Linda Corney" ), 
-    ("Anne", "Francisco", "Call Center Representative", "Customer Service Center", 45000, "Linda Corney" ), 
-    ("Lori", "Pikachu", "Call Center Representative", "Customer Service Center", 45000, "Linda Corney" ), 
-    ("Linda", "Corney", "Call Center Manager", "Customer Service Center", 65000 ), 
-    ("James", "Hill", "Career Counselor", "Career Force Center", 50000, "John Donut" ), 
-    ("Janet", "Valley", "Career Counselor", "Career Force Center", 50000, "John Donut" ), 
-    ("John", "Donut", "Career Center Manager", "Career Force Center", 65000 ), 
-    ("Kent", "Carlson", "IT Specialist", "Information Technology", 60000, "Judy Blossom" ),
-    ("Natalie", "Cole", "IT Specialist", "Information Technology", 60000, "Judy Blossom" ),
-    ("Judy", "Blossom", "IT Manager", "Information Technology", 70000);
+    ("Linda", "Corney", 2, null ), 
+    ("John", "Donut", 4, null ),
+    ("Judy", "Blossom", 6, null );
+
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+  VALUES
+    ("Melissa", "Holland", 1, 1 ),
+    ("Daniel", "Oberhouse", 1, 1 ), 
+    ("Anne", "Francisco", 1, 1 ), 
+    ("Lori", "Pikachu", 1, 1 ), 
+    ("James", "Hill", 3, 2 ), 
+    ("Janet", "Valley", 3, 2 ), 
+    ("Kent", "Carlson", 5, 3 ),
+    ("Natalie", "Cole", 5, 3 );
+
+
+
 
