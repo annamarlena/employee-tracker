@@ -28,7 +28,7 @@ function init() {
       type: "list",
       message: "Please select what you would like to view:",
       name: 'initialQuestions',
-      choices: [ "View All Departments", "View All Roles", "View All Employees", "Add A Department", "Add A Role", "Add An Employee", "Update An Employee Role" ],
+      choices: [ "View All Departments", "View All Roles", "View All Employees", "Add A Department", "Add A Role", "Add An Employee", "Update An Employee Role", "Exit Application" ],
     },
   ])
   .then((data) => {
@@ -46,6 +46,7 @@ function init() {
       case "Add An Employee": addEmployee();
       break;
       case "Update An Employee Role": updateEmployee();
+      break;
     }
   })
 }
@@ -55,7 +56,7 @@ init();
 
 // if user chooses all departments, then show a table with dept names and ids
 function viewDepartments() {
-db.query("SELECT * FROM department", function (err, results) {
+db.query("SELECT * FROM departments", function (err, results) {
   console.table(results);
   init();
 });
@@ -64,7 +65,7 @@ db.query("SELECT * FROM department", function (err, results) {
 // if user chooses all roles, then show a table with job titles, role ids, dept the role belongs to, 
 // and salary for the role
 function viewRoles() {
-db.query("SELECT * FROM role", function (err, results) {
+db.query("SELECT * FROM roles", function (err, results) {
   console.table(results);
   init();
 });
@@ -73,7 +74,7 @@ db.query("SELECT * FROM role", function (err, results) {
 // if user chooses all employees, then show a formatted table with employee data of emp ids, first names, 
 // last names, job titles, depts, salaries, and managers the emps report to
 function viewEmployees() {
-db.query("SELECT * FROM employee", function (err, results) {
+db.query("SELECT * FROM employees", function (err, results) {
   console.table(results);
   init();
 });
@@ -90,7 +91,7 @@ function addDepartment() {
     }
   ])
   .then((data) => {
-    db.query(`INSERT INTO department (department_name) VALUES (?)`, [data.newDepartment], function (err, results) 
+    db.query(`INSERT INTO departments (department_name) VALUES (?)`, [data.newDepartment], function (err, results) 
     {
       if (err) throw err;
       console.table(results);
@@ -120,7 +121,7 @@ function addRole() {
     }
   ])
   .then((data) => {
-    db.query(`INSERT INTO role (job_title) VALUES (?)`, [data.newRole], function (err, results) 
+    db.query(`INSERT INTO roles (job_title, department_id, role_salary) VALUES (?, ?, ?)`, [data.newRole, data.newDepartment, data.newSalary], function (err, results) 
     {
       if (err) throw err;
       console.table(results);
@@ -145,12 +146,17 @@ function addEmployee() {
     },
     {
       type: "input",
-      message: "What is the new employee's role?",
+      message: "What is the new employee's role ID?",
       name: "newEmpRole"
+    },
+    {
+      type: "input",
+      message: "What is the role ID of the new employee's manager?",
+      name: "newEmpMgrRoleID"
     }
   ])
   .then((data) => {
-    db.query(`INSERT INTO employee (first_name) = ? (last_name) = ? (role_id) = ?`, [data.newEmpFirstName], function (err, results) 
+    db.query(`INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)`, [data.newEmpFirstName, data.newEmpLastName, data.newEmpRole, data.newEmpMgrRoleID], function (err, results) 
     {
       if (err) throw err;
       console.table(results);
@@ -175,7 +181,7 @@ function updateEmployee() {
     }
   ])
   .then((data) => {
-    db.query(`UPDATE employee SET role_id = ? WHERE id = ?`, [data.updatedRole, data.employeeToUpdate], function (err, results) 
+    db.query(`UPDATE employees SET role_id = ? WHERE id = ?`, [data.updatedRole, data.employeeToUpdate], function (err, results) 
     {
       if (err) throw err;
       console.table(results);
@@ -183,3 +189,7 @@ function updateEmployee() {
     })
   })
 }
+
+// function quit() {
+//   prompt.ui.close();
+// }
