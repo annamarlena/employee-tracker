@@ -28,7 +28,7 @@ function init() {
       type: "list",
       message: "Please select what you would like to view:",
       name: 'initialQuestions',
-      choices: [ "View All Departments", "View All Roles", "View All Employees", "Add A Department", "Add A Role", "Add An Employee", "Update An Employee Role", "Exit Application" ],
+      choices: [ "View All Departments", "View All Roles", "View All Employees", "Add A Department", "Add A Role", "Add An Employee", "Update An Employee Role" ],
     },
   ])
   .then((data) => {
@@ -116,7 +116,7 @@ function addRole() {
     },
     {
       type: "input",
-      message: "What department does this role belong to?",
+      message: "What is the department ID this role belong to?",
       name: "newDepartment"
     }
   ])
@@ -171,7 +171,7 @@ function updateEmployee() {
   inquirer.prompt([
     {
       type: "input",
-      message: "What is the employee id?",
+      message: "What is the employee's id?",
       name: "employeeToUpdate"
     },
     {
@@ -189,7 +189,3 @@ function updateEmployee() {
     })
   })
 }
-
-// function quit() {
-//   prompt.ui.close();
-// }
